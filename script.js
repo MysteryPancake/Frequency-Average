@@ -64,7 +64,7 @@ function decode(file) {
 		var reader = new FileReader();
 		reader.onload = function() {
 			total = 0;
-			drawText("THANKS!");
+			drawText("ANALYSING...");
 			fileName = file.name.replace(/\.[^/.]+$/, "");
 			onlinePlayer.decodeAudioData(this.result, function(buffer) {
 				var offlinePlayer = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
@@ -157,9 +157,7 @@ function drawInfo() {
 	context.font = "16px Arial";
 	context.fillText("Results: " + bufferLength, canvas.width - 16, 16);
 	context.fillText("Processed: " + total, canvas.width - 16, 36);
-	context.fillText("Softest Frequency: " + Math.floor(frequencyScale(minFrequency)) + "Hz", canvas.width - 16, 56);
-	context.fillText("Softest Decibel: " + Math.floor(minDecibel) + "dB", canvas.width - 16, 76);
-	context.fillText("Loudest Frequency: " + Math.floor(frequencyScale(maxFrequency)) + "Hz", canvas.width - 16, 96);
-	context.fillText("Loudest Decibel: " + Math.floor(maxDecibel) + "dB", canvas.width - 16, 116);
+	context.fillText("Loudest: " + Math.floor(frequencyScale(maxFrequency)) + "Hz (" + Math.floor(maxDecibel) + "dB)", canvas.width - 16, 56);
+	context.fillText("Softest: " + Math.floor(frequencyScale(minFrequency)) + "Hz (" + Math.floor(minDecibel) + "dB)", canvas.width - 16, 76);
 	return minDecibel;
 }
